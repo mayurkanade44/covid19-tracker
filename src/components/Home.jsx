@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InfoCard from "./InfoCard";
 import StateList from "./StateList";
+import Chart from "./Chart";
 
 const url = "https://api.covid19india.org/data.json";
 
@@ -10,13 +11,15 @@ const Home = () => {
   const [filtered, setFiltered] = useState([]);
   const [text, setText] = useState("");
   const [sort, setSort] = useState([]);
+  const [graph, setGraph] = useState([]);
 
   const fetchData = async () => {
     try {
       const resp = await fetch(url);
       const data = await resp.json();
       setData(data.statewise);
-      setSort(data.statewise);
+      setSort(data.statewise.sort((a, b) => b.active - a.active));
+      setGraph(data.cases_time_series);
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +30,10 @@ const Home = () => {
   };
 
   const updateFilter = (m) => {
+    setStates(m)
     setFiltered(data.filter((d) => d.state === m));
   };
+
 
   const search = () => {
     let temp = [...data];
@@ -39,6 +44,7 @@ const Home = () => {
     }
     return setSort(temp);
   };
+
 
   useEffect(() => {
     fetchData();
@@ -62,6 +68,7 @@ const Home = () => {
             <InfoCard title="Recovered" states={filtered} />
             <InfoCard title="Deceased" states={filtered} />
           </div>
+          <Chart graph={graph} states={states} filtered={filtered} />
         </div>
         <div className="col-lg-3">
           <StateList

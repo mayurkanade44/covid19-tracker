@@ -1,10 +1,14 @@
 import React from "react";
 
 const StateList = ({ states, updateFilter, text, onUpdate }) => {
+  
   return (
     <>
       <div className="mt-3">
-        <h5>Active Cases by States</h5>
+        <h5>
+          Active Cases by States / <button className='btn btn-primary india-btn' onClick={()=>updateFilter('Total')} >India</button>
+          
+        </h5>
         <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
