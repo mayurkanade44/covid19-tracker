@@ -52,10 +52,12 @@ const Home = () => {
 
   useEffect(() => {
     search();
+    // eslint-disable-next-line
   }, [text]);
 
   useEffect(() => {
     updateFilter(states);
+    // eslint-disable-next-line
   }, [data]);
 
   return (
