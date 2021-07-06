@@ -70,7 +70,7 @@ const Home = () => {
           </div>
           <Chart graph={graph} states={states} filtered={filtered} />
         </div>
-        <div className="col-lg-3">
+        <div className="col-xl-3">
           <StateList
             states={sort}
             updateFilter={updateFilter}
